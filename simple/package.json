@@ -4,12 +4,12 @@
   "description": "Simplest possible use of Node.js and Docker.",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node -r newrelic src/index.js",
     "docker:ls": "docker image ls",
     "docker:ps": "docker container ls",
     "docker:build": "docker build --file Dockerfile --tag=helloworld .",
-    "docker:run": "docker run -p 3000:3000 -d --name=helloworld helloworld",
-    "docker:stop": "docker stop helloworld",
+    "docker:run": "docker run -p 3000:3000 -d --name=helloworld -e NEW_RELIC_LICENSE_KEY=API_KEY -e NEW_RELIC_LOG_LEVEL=trace  -e NEW_RELIC_APP_NAME=\"helloworld_nodejs\" helloworld",
+    "docker:stop": "docker stop helloworld && docker rm helloworld",
     "docker:shell": "docker run -it -p 3000:3000 helloworld bash",
     "docker:remove-all": "docker rm --force $(docker ps -a -q) && docker rmi --force $(docker images -q)"
   },
@@ -17,6 +17,7 @@
   "author": "ashley@codecapers.com.au",
   "license": "MIT",
   "dependencies": {
+    "newrelic": "latest",
     "express": "^4.17.1"
   }
 }

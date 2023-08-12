@@ -1,62 +1,27 @@
-# Simple Node.js + Docker example
+# New Relic custom instrumentation
 
-The simplest possible example of using Node.js and Docker.
 
-## Files
+## Quick instructions
+1. clone the 'newrelic' branch of this repository
+2. edit the package.json file and add your New Relic key
+3. build the container: 'npm run docker:build'
+4. run the application inside the container: 'npm run docker:run'
+5. make as many visits to http://localhost:3000/ as possible, you can use the ab command: 'ab -n 200 http://localhost:3000/'
+6. go to the New Relic console and search 'helloworld_nodejs' application in the APM instrumentations, go to the transactions section and search customTransaction inside non-web transactions
+7. delete the container: 'npm run docker:stop'
 
-- simple/
-  - src/index.js      Example Express web server.
-  - .dockerignore     Make Docker ignore specified files.
-  - Dockerfile        Script file for building our Docker image.
-  - package.json      Node.js package file, specifies npm dependencies.
+## New Relic console output
 
-## Setup
+APM View<br/>
+<img src="./img/customtransaction01.png" width="800px" />
 
-You need Node.js and Docker installed.
+Transaction View<br/>
+<img src="./img/customtransaction02.png" width="800px" />
 
-First change to the directory and install dependencies:
+Inside of a sampled transaction<br/>
+<img src="./img/customtransaction03.png" width="800px" />
 
-```bash
-cd simple
-npm install
-```
+# original documentation
 
-## Directly run
+For the original documentation please consult this file on the master branch
 
-The example Node.js application is just "Hello world", you run it directly like this:
-
-```bash
-npm start
-```
-
-## Build and run using Docker
-
-To build the Docker image:
-
-```bash
-npm run docker:build
-```
-
-To run the Docker image:
-
-```bash
-npm run docker:run
-```
-
-To see what Docker images you have locally:
-
-```bash
-npm run docker:ls
-```
-
-To see what Docker containers you have running:
-
-```bash
-npm run docker:ps
-```
-
-To stop the container:
-
-```bash
-npm run docker:stop
-```
